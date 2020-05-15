@@ -1,14 +1,11 @@
 configuration {
-  modi: "drun,window";
+  modi: "Desktop:rofi-desktop.sh,drun,window";
   theme: "themes/slate.rasi";
   show-icons: true;
   columns: 1;
   font: "Hermit 14";
   terminal: "konsole";
   sort: true;
-  display-drun: "Run:";
-  display-window: "Window:";
-
-/* One unified view: */
-/*	combi-modi: "window,run";*/
+  display-drun: "Run";
+  display-window: "Window";
 }
