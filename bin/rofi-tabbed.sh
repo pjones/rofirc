@@ -31,7 +31,7 @@ list_children_of() {
 ################################################################################
 declare -A children="( $(list_children_of "$window") )"
 
-answer=$(rofi -dmenu -i -p "tab" -only-match < <(
+answer=$(rofi -dmenu -i -p "tab" -no-custom < <(
   for title in "${!children[@]}"; do
     echo "$title"
   done
