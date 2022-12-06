@@ -1,5 +1,6 @@
 configuration {
-  modi: "Desktop:rofi-desktop.sh,drun,window,combi";
+  modes: "Workspace:rofi-desktop.sh,drun,window,combi";
+  combi-modes: "drun,window,Workspace";
   show-icons: true;
   columns: 1;
   font: "Hermit 10";
@@ -7,4 +8,9 @@ configuration {
   sort: true;
   display-drun: "Run";
   display-window: "Window";
+
+  drun {
+    parse-user:   true;
+    parse-system: true;
+  }
 }

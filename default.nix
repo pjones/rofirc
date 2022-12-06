@@ -20,7 +20,7 @@ pkgs.stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/wrapped $out/bin $out/etc $out/themes
 
-    for file in bin/* wrapper/*; do
+    for file in bin/* ; do
       name=$(basename "$file")
       install -m 0550 "$file" "$out/wrapped"
       substituteAllInPlace "$out/wrapped/$name"

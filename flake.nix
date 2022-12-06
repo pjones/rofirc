@@ -2,7 +2,7 @@
   description = "Peter's Rofi configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -38,7 +38,7 @@
         let pkgs = nixpkgsFor.${system}; in
         {
           default = pkgs.mkShell {
-            buildInputs = [ self.packages.${system}.rofirc ];
+            buildInputs = [ pkgs.rofi self.packages.${system}.rofirc ];
             inputsFrom = builtins.attrValues self.packages.${system};
           };
         });
