@@ -2,7 +2,7 @@ configuration {
   modi: "Desktop:rofi-desktop.sh,drun,window,combi";
   show-icons: true;
   columns: 1;
-  font: "Hermit 14";
+  font: "Hermit 10";
   terminal: "konsole";
   sort: true;
   display-drun: "Run";

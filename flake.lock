@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "adi1090x": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1662476617,
-        "narHash": "sha256-L5gs60ji5hg/NsE5IxVe4IdkNJsyF9VfarRSI62nZ+g=",
-        "owner": "adi1090x",
-        "repo": "rofi",
-        "rev": "3e0815c34b579c64d7b9f741bb6dd6082b434940",
-        "type": "github"
-      },
-      "original": {
-        "owner": "adi1090x",
-        "repo": "rofi",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1662099760,
@@ -34,7 +18,6 @@
     },
     "root": {
       "inputs": {
-        "adi1090x": "adi1090x",
         "nixpkgs": "nixpkgs"
       }
     }
