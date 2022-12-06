@@ -1,6 +1,5 @@
 configuration {
-  modi: "Desktop:rofi-desktop.sh,drun,window";
-  theme: "themes/slate.rasi";
+  modi: "Desktop:rofi-desktop.sh,drun,window,combi";
   show-icons: true;
   columns: 1;
   font: "Hermit 14";

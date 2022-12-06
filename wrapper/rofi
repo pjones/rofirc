@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# Wrapper around rofi just for testing.
-exec "$REAL_ROFI" -config "$(pwd)/etc/config.rasi" "$@"
+# Wrapper around rofi:
+exec rofi -config "@out@/etc/config.rasi" "$@"

@@ -1,23 +1,40 @@
 {
   "nodes": {
+    "adi1090x": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1662476617,
+        "narHash": "sha256-L5gs60ji5hg/NsE5IxVe4IdkNJsyF9VfarRSI62nZ+g=",
+        "owner": "adi1090x",
+        "repo": "rofi",
+        "rev": "3e0815c34b579c64d7b9f741bb6dd6082b434940",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adi1090x",
+        "repo": "rofi",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1639161226,
-        "narHash": "sha256-75Y08ynJDTq6HHGIF+8IADBJSVip0UyWQH7jqSFnRR8=",
+        "lastModified": 1662099760,
+        "narHash": "sha256-MdZLCTJPeHi/9fg6R9fiunyDwP3XHJqDd51zWWz9px0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "573095944e7c1d58d30fc679c81af63668b54056",
+        "rev": "67e45078141102f45eff1589a831aeaa3182b41e",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-21.11",
+        "ref": "nixos-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
+        "adi1090x": "adi1090x",
         "nixpkgs": "nixpkgs"
       }
     }

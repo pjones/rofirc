@@ -15,14 +15,15 @@ pkgs.stdenvNoCC.mkDerivation {
   name = "pjones-rofirc";
   src = ./.;
   phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
-  buildInputs = deps ++ [ pkgs.makeWrapper ];
+  buildInputs = [ pkgs.makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/wrapped $out/bin $out/etc $out/themes
 
-    for file in bin/*; do
+    for file in bin/* wrapper/*; do
       name=$(basename "$file")
       install -m 0550 "$file" $out/wrapped
+      substituteAllInPlace "$out/wrapped/$name"
 
       makeWrapper "$out/wrapped/$name" "$out/bin/$name" \
         --prefix PATH : "${path}"
