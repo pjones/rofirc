@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # Wrapper around rofi:
-exec rofi \
+exec rofi-wrapper.sh \
   -show combi \
-  -config "@out@/etc/config.rasi" \
-  -theme "@out@/themes/launcher.rasi" \
+  -kb-accept-custom "" -kb-custom-1 "Control+Return" \
   "$@"

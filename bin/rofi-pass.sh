@@ -16,60 +16,50 @@
 export PASSWORD_STORE_DIR=${PASSWORD_STORE_DIR:-$HOME/.password-store}
 
 ################################################################################
-_rofi() {
-  rofi "$@"
-}
-
-################################################################################
-_notify() {
-  notify-send --expire-time=1000 --app-name=rofi "Password" "$@"
+notify() {
+  notify-send \
+    --expire-time=1000 \
+    --app-name=rofi \
+    --icon=dialog-password \
+    "Password" "$@"
 }
 
 ################################################################################
 show_passwords() {
-  find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' -printf '%P\n' |
-    sed 's/\.gpg$//' |
-    _rofi -dmenu -p "pass" -kb-accept-custom "" -kb-custom-1 "Control+Return"
+  while IFS= read -r -d '' file; do
+    echo -en "$file\0icon\x1fdialog-password\n"
+  done < <(
+    find "$PASSWORD_STORE_DIR" \
+      -type f \
+      -name '*.gpg' \
+      -printf "%P\0" |
+      sed --null-data 's/\.gpg$//'
+  )
 }
 
 ################################################################################
-show_fields() {
+clip_password() {
   local password=$1
 
-  pass show "$password" |
-    tail --lines=+3 |
-    sed -e 's/:.*//g' -e '/^ *$/q' |
-    _rofi -dmenu -p "pass field"
+  pass show --clip "$password" &&
+    notify "Copied $(basename "$password")"
 }
 
 ################################################################################
-select_and_copy_field() {
-  local password=$1
-  field=$(show_fields "$password")
-
-  if [ -z "$field" ]; then
-    exit
-  fi
-
-  pass show "$password" |
-    grep --fixed-strings "${field}:" |
-    awk -F ': ' '{print $2}' |
-    xclip -in -selection clipboard -rmlastnl
-
-  _notify "Copied $field from $password"
+field_prompter() {
+  export ROFI_PASSWORD_FILE=$1
+  rofi-wrapper.sh -show pass-field
 }
 
 ################################################################################
 # Here's where things start:
-password=$(show_passwords)
-
-case $? in
-0)
-  pass show --clip "$password"
-  _notify "Copied $password"
-  ;;
-
-10)
-  select_and_copy_field "$password"
-  ;;
-esac
+if [ $# -eq 0 ]; then
+  echo -en "\0use-hot-keys\x1ftrue\n"
+  show_passwords
+else
+  if [ "$ROFI_RETV" -eq 10 ]; then
+    coproc field_prompter "$1" >/dev/null 2>&1
+  else
+    coproc clip_password "$1" >/dev/null 2>&1
+  fi
+fi

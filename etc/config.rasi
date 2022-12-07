@@ -1,16 +1,26 @@
 configuration {
-  modes: "Workspace:rofi-desktop.sh,drun,window,combi";
-  combi-modes: "drun,window,Workspace";
+  modes: "workspace:rofi-desktop.sh,pass:rofi-pass.sh,pass-field:rofi-pass-field.sh,drun,window,combi";
+  combi-modes: "drun,window,pass,workspace";
   show-icons: true;
-  columns: 1;
   font: "Hermit 10";
   terminal: "konsole";
   sort: true;
-  display-drun: "Run";
-  display-window: "Window";
 
   drun {
+    display-name: "Run";
     parse-user:   true;
     parse-system: true;
+  }
+
+  window {
+    display-name: "Win";
+  }
+
+  workspace {
+    display-name: "Workspace";
+  }
+
+  pass {
+    display-name: "Pass";
   }
 }
