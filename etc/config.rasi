@@ -1,5 +1,5 @@
 configuration {
-  modes: "workspace:rofi-desktop.sh,pass:rofi-pass.sh,pass-field:rofi-pass-field.sh,drun,window,combi";
+  modes: "workspace:rofi-desktop.sh,pass:rofi-pass.sh,drun,window,combi";
   combi-modes: "drun,window,pass,workspace";
   show-icons: true;
   font: "Hermit 10";

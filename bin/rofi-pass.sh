@@ -46,9 +46,51 @@ clip_password() {
 }
 
 ################################################################################
+clip_field() {
+  local password=$1
+  local field=$2
+
+  pass show "$password" |
+    awk --assign field="$field" \
+      --field-separator ': ' \
+      '$1 == field {print $2}' |
+    xclip -in -selection clipboard -rmlastnl
+
+  notify "Copied $field from $(basename "$password")"
+}
+
+################################################################################
+# The mapfile weirdness in here is to ensure that *if* a PIN entry
+# dialog needs to appear, that will happen *before* rofi has a chance
+# to grab the keyboard.
+#
+# Without this, rofi will grab the keyboard and then when the PIN
+# entry dialog appears you won't be able to interact with it.  And
+# since rofi still holds the keyboard grab, the entire window manager
+# is frozen.
 field_prompter() {
-  export ROFI_PASSWORD_FILE=$1
-  rofi-wrapper.sh -show pass-field
+  local password=$1
+
+  declare -a fields
+  mapfile -t fields < <(
+    pass show "$password" |
+      tail --lines=+3 |
+      sed --silent \
+        --expression '/^ *$/q' \
+        --expression 's/:.*//p'
+  )
+
+  result=$({
+    for field in "${fields[@]}"; do
+      echo -en "$field\0icon\x1fsecurity-high\n"
+    done
+  } | rofi-wrapper.sh -dmenu \
+    -i -only-match -no-custom \
+    -select user)
+
+  if [ -n "$result" ]; then
+    clip_field "$password" "$result"
+  fi
 }
 
 ################################################################################
